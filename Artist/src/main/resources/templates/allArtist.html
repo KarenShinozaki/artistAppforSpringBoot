@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>アーティスト情報の出力</title>
+</head>
+<body>
+<h2>アーティスト情報一覧</h2>
+<h4 style="margin:5%;">ソロアーティスト情報</h4>
+
+
+<table class="table table-bordered border-primary table-striped" style="margin:5%; width: 70%">
+    <thead>
+    <tr>
+
+        <th scope="col">名前</th>
+        <th scope="col">曲数</th>
+        <th scope="col">誕生日</th>
+        <th scope="col">没年</th>
+        <th scope="col">年齢</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="artist, status : ${artistAllList}"  th:if="${artist.type == 'S'}">
+        <td>
+            <a href="details.html"
+                    th:href="@{http://localhost:8080/artist_details(id=${artist.id})}"><th:block th:text="${artist.name}"></th:block></a> </td>
+        <td th:text="${artist.numberOfMusical}"></td>
+        <td th:text="${#temporals.format(artist.start, 'yyyy/MM/dd')}"></td>
+        <td th:if="${artist.isDied()}"><span th:text="${#temporals.format(artist.end.get(), 'yyyy/MM/dd')}"></span></td>
+        <td th:unless="${artist.isDied()}"><span>*</span></td>
+        <td th:if="${artist.isAlive()}">
+            現在<span th:text="${artist.getAge()}"></span>歳
+        </td>
+        <td th:if="${artist.isDied()}">享年<span th:text="${artist.getAge()}"></span>歳</td>
+    </tr>
+
+    </tbody>
+</table>
+<h4 style="margin:5%;">グループアーティスト情報</h4>
+<table class="table table-bordered border-primary table-striped" style="margin:5%; width: 70%">
+    <thead>
+    <tr>
+
+        <th scope="col">名前</th>
+        <th scope="col">曲数</th>
+        <th scope="col">活動開始日</th>
+        <th scope="col">活動停止日</th>
+        <th scope="col">活動期間</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="artist, status : ${artistAllList}" th:if="${artist.type == 'G'}">
+        <td>
+            <a href="details.html"
+               th:href="@{http://localhost:8080/artist_details(id=${artist.id})}"><th:block th:text="${artist.name}"></th:block></a> </td>
+        <td th:text="${artist.numberOfMusical}"></td>
+        <td th:text="${#temporals.format(artist.start, 'yyyy/MM/dd')}"></td>
+        <td th:if="${artist.isDied()}"><span th:text="${#temporals.format(artist.end.get(), 'yyyy/MM/dd')}"></span></td>
+        <td th:unless="${artist.isDied()}"><span>*</span></td>
+        <td th:if="${artist.isAlive()}">現在<span th:text="${artist.getAge()}"></span>年目</td>
+        <td th:if="${artist.isDied()}"><span th:text="${artist.getAge()}"></span>年間</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

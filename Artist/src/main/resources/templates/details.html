@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>アーティスト詳細情報</title>
+</head>
+<body>
+<div class="Artist" style="margin:5%">
+    <span th:if="${artistDetail.type == 'S'}">
+        名前：<span th:text="${artistDetail.name}"></span><br><br>
+        総曲数：<span th:text="${artistDetail.numberOfMusical}"></span><br><br>
+        誕生日：<span th:text="${#temporals.format(artistDetail.start, 'yyyy/MM/dd')}"></span><br><br>
+        <th:block th:if="${artistDetail.isDied()}" >
+           死没日： <span th:text="${#temporals.format(artistDetail.end.get(), 'yyyy/MM/dd')}"></span><br><br>
+        </th:block>
+        活動期間：
+        <span th:if="${artistDetail.isAlive()}">
+            現在<span th:text="${artistDetail.getAge()}"></span>歳<br></span>
+        <span th:if="${artistDetail.isDied()}">
+            享年<span th:text="${artistDetail.getAge()}"></span>歳<br></span>
+
+        <span th:each = "movie :${movieList}">
+            <p th:if="${artistDetail.isHasMovieId()}">
+            映画：<span  th:if="${movie.artistId} == ${artistDetail.id}"  th:text="${movie.title}">
+            </span>
+            </p>
+        </span><br>
+
+
+        <span th:if="${artistDetail.isHasGroupId()}">
+        グループ所属情報：<span th:each="artistAllList : ${artistAllList}">
+                <span th:if="${artistDetail.groupId.get()} == ${artistAllList.id}"  th:text="${artistAllList.name}"></span>
+                   </span>
+        </span>
+
+<!--    曲名：<span th:each="musicList : ${musicList}">-->
+<!--        <span th:if="${musicList.artistId} == ${artistAllList.id}"  th:text="${musicList.musicTitle}"></span>-->
+<!--        </span>-->
+    </span>
+</div>
+<div class="Artist" style="margin:5%">
+    <span th:if="${artistDetail.type == 'G'}">
+        グループ名：<span th:text="${artistDetail.name}"></span><br><br>
+        総曲数：<span th:text="${artistDetail.numberOfMusical}"></span><br><br>
+        活動開始日：<span th:text="${#temporals.format(artistDetail.start, 'yyyy/MM/dd')}"></span><br><br>
+        <th:block th:if="${artistDetail.isDied()}" >
+            解散日： <span th:text="${#temporals.format(artistDetail.end.get(), 'yyyy/MM/dd')}"></span><br><br>
+        </th:block>
+        活動期間：
+        <span th:if="${artistDetail.isAlive()}">
+            現在<span th:text="${artistDetail.getAge()}"></span>年目<br></span>
+        <span th:if="${artistDetail.isDied()}">
+            <span th:text="${artistDetail.getAge()}"></span>年間活動<br></span>
+
+        <span th:each = "movie :${movieList}">
+            <p th:if="${artistDetail.isHasMovieId()}">
+                映画：<span  th:if="${movie.artistId} == ${artistDetail.id}"  th:text="${movie.title}">
+                </span>
+            </p>
+        </span><br>
+
+
+メンバー情報：<br><span th:each="artist : ${artistAllList}">
+                <span th:if="${artist.isHasGroupId()}">
+                        <span th:if="${artistDetail.id} == ${artist.groupId.get()}"><br>
+                            <li  th:text="${artist.name}"></li>
+                        </span>
+                </span>
+            </span>
+    </span>
+</div>
+
+</body>
+</html>
