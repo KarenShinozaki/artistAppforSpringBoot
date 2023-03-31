@@ -12,8 +12,6 @@ public class ArtistService {
 
     @Autowired
     private ArtistDAO dao;
-    @Autowired
-    private JdbcTemplate template;
 
     public boolean isSoloArtist() {
         return true;
@@ -25,7 +23,16 @@ public class ArtistService {
     }
 
     public Artist getDetail(int id){
-        Artist artist = dao.findDetails(id);
-        return artist;
+        Artist artistDetail = dao.findDetails(id);
+        return artistDetail;
+    }
+
+    public List<Artist> getArtistListByGroupId(int groupId){
+        List<Artist> groupHasAArtists = dao.sortList(groupId);
+        return groupHasAArtists;
+    }
+
+    public Artist getArtistByGroupId(int id){
+        return dao.sortGroup(id);
     }
 }

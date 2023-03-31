@@ -144,15 +144,6 @@ public class Artist {
 
     public long getAge() {
         ZoneId defaultZone = ZoneId.of("Asia/Tokyo");
-
-
-//        java.util.Date aaa = getStart();
-//        Instant in = aaa.toInstant();
-//        LocalDate ld = LocalDate.ofInstant(in, defaultZone);
-//
-//
-//        LocalDate startDate = LocalDate.ofInstant(getStart().toInstant(), defaultZone);
-//        LocalDate endDate = LocalDate.ofInstant(getEnd().orElse(new Date()).toInstant(), defaultZone);
         return ChronoUnit.YEARS.between(start, this.getEnd().orElse(LocalDate.now()));
     }
 }

@@ -24,4 +24,9 @@ public class MovieService {
         Movie movie = dao.findDetails(id);
         return movie;
     }
+
+    public Movie getArtistHasAMovie(int id){
+        Movie sortMovie = dao.sortMovie(id);
+        return sortMovie;
+    }
 }

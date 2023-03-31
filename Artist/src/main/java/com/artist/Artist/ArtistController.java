@@ -39,13 +39,15 @@ public class ArtistController {
     @RequestMapping("artist_details")
     public String details(@RequestParam("id") int id, Model m) {
         Artist artistDetail = artistService.getDetail(id);
-        List<Movie> movieList = movieService.getAll();
-        List<Artist> artistAllList = artistService.getAll();
-        List<Music> musicList = musicService.getAll();
-        m.addAttribute("artistAllList",artistAllList);
+        List<Artist> artistListByGroupId = artistService.getArtistListByGroupId(id);
+        Artist artistByGroupId = artistService.getArtistByGroupId(id);
+        Movie artistHasAMovie = movieService.getArtistHasAMovie(id);
+//        List<Music> musicList = musicService.getAll();
         m.addAttribute("artistDetail",artistDetail);
-        m.addAttribute("movieList",movieList);
-        m.addAttribute("musicList",musicList);
+        m.addAttribute("artistListByGroupId",artistListByGroupId);
+        m.addAttribute("artistByGroupId",artistByGroupId);
+        m.addAttribute("movie",artistHasAMovie);
+//        m.addAttribute("musicList",musicList);
         return "details";
     }
 }
