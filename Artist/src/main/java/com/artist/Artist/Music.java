@@ -42,10 +42,12 @@ public class Music {
     }
 
     public Integer getArtistId() {
-        return artistId;
+        return this.artistId;
     }
 
     public void setArtistId(Integer artistId) {
         this.artistId = artistId;
     }
+
+
 }

@@ -9,10 +9,22 @@
 </head>
 <body>
 <h2>アーティスト情報一覧</h2>
+
+
+<div class="container">
+    <div class="row justify-content-end row-cols-lg-5 g-lg-10" style="text-align:center; ">
+        <div class="col">
+            <div class="p-3 border bg-light">
+                <a href="artistRegister.html"
+                   th:href="@{http://localhost:8080/artist_register}"><span style="">アーティスト新規登録</span></a></div>
+        </div>
+    </div>
+</div>
+
 <h4 style="margin:5%;">ソロアーティスト情報</h4>
 
 
-<table class="table table-bordered border-primary table-striped" style="margin:5%; width: 70%">
+<table class="table table-bordered border-primary table-striped " style="margin:auto;width:80%">
     <thead>
     <tr>
 
@@ -43,7 +55,7 @@
     </tbody>
 </table>
 <h4 style="margin:5%;">グループアーティスト情報</h4>
-<table class="table table-bordered border-primary table-striped" style="margin:5%; width: 70%">
+<table class="table table-bordered border-primary table-striped" style="margin:auto;width:80%">
     <thead>
     <tr>
 
@@ -62,8 +74,8 @@
                th:href="@{http://localhost:8080/artist_details(id=${artist.id})}"><th:block th:text="${artist.name}"></th:block></a> </td>
         <td th:text="${artist.numberOfMusical}"></td>
         <td th:text="${#temporals.format(artist.start, 'yyyy/MM/dd')}"></td>
+        <td th:if="${artist.isAlive()}"><span>*</span></td>
         <td th:if="${artist.isDied()}"><span th:text="${#temporals.format(artist.end.get(), 'yyyy/MM/dd')}"></span></td>
-        <td th:unless="${artist.isDied()}"><span>*</span></td>
         <td th:if="${artist.isAlive()}">現在<span th:text="${artist.getAge()}"></span>年目</td>
         <td th:if="${artist.isDied()}"><span th:text="${artist.getAge()}"></span>年間</td>
     </tr>

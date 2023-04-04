@@ -26,11 +26,11 @@
             映画：<span th:text="${movie.title}"></span>
             </p>
         </span><br>
-
+    代表曲：<span th:text="${music.musicTitle}"></span>
 
         <span th:if="${artistDetail.isHasGroupId()}">
-        グループ所属情報：<span th:each="groupName : ${artistByGroupId}">
-                    <span th:text="${groupName.name}"></span>
+        グループ所属情報：
+                    <span th:text="${group.name}"></span>
                    </span>
         </span>
     </span>

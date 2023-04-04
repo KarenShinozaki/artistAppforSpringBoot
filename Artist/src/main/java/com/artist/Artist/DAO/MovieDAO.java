@@ -23,7 +23,7 @@ public class MovieDAO {
         return movieList;
     }
 
-    public Movie findDetails(int movieId){
+    public Movie findDetail(int movieId){
         String sql = "SELECT * FROM movies WHERE id =?";
         Movie movie = template.queryForObject(sql, new BeanPropertyRowMapper<Movie>(Movie.class),movieId);
         return movie;

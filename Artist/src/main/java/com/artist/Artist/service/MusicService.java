@@ -22,7 +22,7 @@ public class MusicService {
     }
 
     public Music getDetail(int id){
-        Music music = dao.findDetails(id);
+        Music music = dao.findDetail(id);
         return music;
     }
 }

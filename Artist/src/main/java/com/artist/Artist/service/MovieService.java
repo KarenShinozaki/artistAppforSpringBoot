@@ -21,7 +21,7 @@ public class MovieService {
     }
 
     public Movie getDetail(int id){
-        Movie movie = dao.findDetails(id);
+        Movie movie = dao.findDetail(id);
         return movie;
     }
 

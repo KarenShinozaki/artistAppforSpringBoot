@@ -1,5 +1,6 @@
 package com.artist.Artist;
 
+import jdk.jfr.DataAmount;
 import org.springframework.data.relational.core.sql.In;
 
 import javax.swing.text.html.Option;
@@ -30,8 +31,6 @@ public class Artist {
         this.start = start;
         this.groupId = groupId;
         this.movieId = movieId;
-
-
     }
 
     public Artist(int id, String name, String type, int numberOfMusical, LocalDate start, Integer movieId, Integer groupId, LocalDate end) {
@@ -101,9 +100,6 @@ public class Artist {
         return Optional.ofNullable(this.movieId);
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
 
     public Optional<Integer> getGroupId() {
         return Optional.ofNullable(this.groupId);

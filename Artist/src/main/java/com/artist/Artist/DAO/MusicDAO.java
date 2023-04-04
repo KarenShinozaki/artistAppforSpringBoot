@@ -1,6 +1,8 @@
 package com.artist.Artist.DAO;
+import com.artist.Artist.Artist;
 import com.artist.Artist.Music;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
@@ -28,15 +30,8 @@ public class MusicDAO {
         return list;
     }
 
-    public Music findDetails(int movieId){
-
-        String sql = "SELECT id,music_title,genre,artist_id WHERE id =?";
-        Map<String,Object> result = template.queryForMap(sql,movieId);
-        Music music = new Music();
-        music.setId((int)result.get("id"));
-        music.setMusicTitle((String)result.get("music_title"));
-        music.setGenre((String) result.get("genre"));
-        music.setArtistId((int)result.get("artist_id"));
-        return music;
+    public Music findDetail(int id){
+        String sql = "SELECT * FROM musics WHERE artist_id =?";
+        return template.queryForObject(sql, new BeanPropertyRowMapper<Music>(Music.class),id);
     }
 }
