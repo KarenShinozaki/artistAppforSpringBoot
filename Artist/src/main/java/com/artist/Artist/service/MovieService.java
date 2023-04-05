@@ -20,11 +20,12 @@ public class MovieService {
         return movieList;
     }
 
-    public Movie getDetail(int id){
-        Movie movie = dao.findDetail(id);
+    public List<Movie> getDetail(int id){
+        List<Movie> movie = dao.findDetail(id);
         return movie;
     }
 
+    @Deprecated
     public Movie getArtistHasAMovie(int id){
         Movie sortMovie = dao.sortMovie(id);
         return sortMovie;

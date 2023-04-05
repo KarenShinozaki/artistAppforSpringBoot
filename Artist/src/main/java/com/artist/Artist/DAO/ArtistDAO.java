@@ -2,8 +2,6 @@ package com.artist.Artist.DAO;
 
 import com.artist.Artist.Artist;
 import com.artist.Artist.ArtistDTO;
-import com.artist.Artist.ArtistEntity;
-import com.artist.Artist.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,6 +33,12 @@ public class ArtistDAO {
         return template.query(sql, rowMapper, groupId);
     }
 
+    public int save(Artist artist) {
+        String sql = "insert into Artists(type,name,number_of_musical,start,end) values(?,?,?,?,?)";
+        template.update(sql,artist.getType(),artist.getName(),artist.getNumberOfMusical(),artist.getStart(),artist.getEnd().orElse(null));
+        return template.queryForObject("select last_insert_id()",Integer.class);
+    }
+
 //    public Artist getGroupFromRelatedMember(int id){
 //        String sql = "SELECT * FROM artists WHERE id = (SELECT group_id FROM artists WHERE id = ?)";
 //        List<Artist> aaa= template.query(sql,new BeanPropertyRowMapper<Artist>(Artist.class),id);
@@ -43,6 +47,7 @@ public class ArtistDAO {
 //        }
 //       return aaa.get(0);
 //    }
+
 
 
 

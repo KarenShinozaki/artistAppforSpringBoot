@@ -30,8 +30,8 @@ public class MusicDAO {
         return list;
     }
 
-    public Music findDetail(int id){
+    public List<Music> findDetail(int id){
         String sql = "SELECT * FROM musics WHERE artist_id =?";
-        return template.queryForObject(sql, new BeanPropertyRowMapper<Music>(Music.class),id);
+        return template.query(sql, new BeanPropertyRowMapper<Music>(Music.class),id);
     }
 }

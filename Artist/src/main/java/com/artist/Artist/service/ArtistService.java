@@ -1,9 +1,8 @@
 package com.artist.Artist.service;
-import com.artist.Artist.ArtistEntity;
+import com.artist.Artist.*;
 import com.artist.Artist.DAO.ArtistDAO;
-import com.artist.Artist.Artist;
-import com.artist.Artist.ArtistRepository;
-import com.artist.Artist.ArtistDTO;
+import com.artist.Artist.DAO.MovieDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,8 @@ public class ArtistService {
     @Autowired
     private ArtistDAO dao;
     @Autowired
-    ArtistRepository artistRepository;
+    private MovieDAO moviedao;
+
 
     public boolean isSoloArtist() {
         return true;
@@ -40,16 +40,22 @@ public class ArtistService {
 
     @Transactional
     public void create(ArtistDTO artistDTO) {
-        artistRepository.save(createUser(artistDTO));
+       int artistId = dao.save(createArtist(artistDTO));
+        if(StringUtils.isNotBlank(artistDTO.getMovie())){
+            Movie movie = new Movie();
+            movie.setTitle(artistDTO.getMovie());
+            movie.setArtistId(artistId);
+            moviedao.save(movie);
+        }
     }
 
-    public ArtistEntity createUser(ArtistDTO artistDTO) {
-        ArtistEntity artistEntity = new ArtistEntity();
-        artistEntity.setType(artistDTO.getType());
-        artistEntity.setName(artistDTO.getName());
-        artistEntity.setNumberOfMusical(artistDTO.getNumberOfMusical());
-        artistEntity.setStart(artistDTO.getStart());
-        artistEntity.setEnd(artistDTO.getEnd().orElse(null));
-        return artistEntity;
+    public Artist createArtist(ArtistDTO artistDTO) {
+        Artist artist = new Artist();
+        artist.setType(artistDTO.getType());
+        artist.setName(artistDTO.getName());
+        artist.setNumberOfMusical(artistDTO.getIntNumberOfMusical());
+        artist.setStart(artistDTO.getDateStart());
+        artist.setEnd(artistDTO.getDateEnd());
+        return artist;
     }
 }

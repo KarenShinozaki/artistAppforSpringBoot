@@ -21,12 +21,19 @@
             現在<span th:text="${artistDetail.getAge()}"></span>歳<br></span>
         <span th:if="${artistDetail.isDied()}">
             享年<span th:text="${artistDetail.getAge()}"></span>歳<br></span>
-
-            <p th:if="${artistDetail.isHasMovieId()}">
+        <br>
+            <p th:each="movie,status : ${movies}">
             映画：<span th:text="${movie.title}"></span>
+                <span th:unless="${status.last}">、</span>
             </p>
         </span><br>
-    代表曲：<span th:text="${music.musicTitle}"></span>
+
+    曲：<span th:each="music,status : ${musics}">
+
+    <span th:text="${music.musicTitle}"></span>
+    <span th:unless="${status.last}">、</span>
+
+    </span>
 
         <span th:if="${artistDetail.isHasGroupId()}">
         グループ所属情報：
@@ -57,7 +64,10 @@
                 </span>
             </p>
         </span><br>
+    曲：<span th:each="music,status : ${musics}">
 
+    <span th:text="${music.musicTitle}"></span>
+    <span th:unless="${status.last}">、</span>
 
 メンバー情報：<br><span th:each="artist : ${artistListByGroupId}">
                 <span th:if="${artist.isHasGroupId()}">

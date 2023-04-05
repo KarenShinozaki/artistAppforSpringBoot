@@ -23,16 +23,21 @@ public class MovieDAO {
         return movieList;
     }
 
-    public Movie findDetail(int movieId){
-        String sql = "SELECT * FROM movies WHERE id =?";
-        Movie movie = template.queryForObject(sql, new BeanPropertyRowMapper<Movie>(Movie.class),movieId);
+    public List<Movie> findDetail(int movieId){
+        String sql = "SELECT * FROM movies WHERE artist_id =?";
+        List<Movie> movie = template.query(sql, new BeanPropertyRowMapper<Movie>(Movie.class),movieId);
         return movie;
     }
 
-
+    @Deprecated
     public Movie sortMovie(int id){
         String sql = "SELECT * FROM movies WHERE id = (SELECT id FROM movies WHERE artist_id =?)";
         Movie artistMovie = template.queryForObject(sql,new BeanPropertyRowMapper<Movie>(Movie.class),id);
         return artistMovie;
+    }
+
+    public void save(Movie movie) {
+        String sql = "insert into Movies(title,artist_id) values(?,?)";
+        template.update(sql,movie.getTitle(),movie.getArtistId());
     }
 }

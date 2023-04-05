@@ -21,8 +21,8 @@ public class MusicService {
         return musicList;
     }
 
-    public Music getDetail(int id){
-        Music music = dao.findDetail(id);
+    public List<Music> getDetail(int id){
+        List<Music> music = dao.findDetail(id);
         return music;
     }
 }
