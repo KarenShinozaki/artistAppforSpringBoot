@@ -1,4 +1,4 @@
-package com.artist.Artist;
+package com.artist.Artist.bussinessLogic;
 
 import jdk.jfr.DataAmount;
 import org.springframework.data.relational.core.sql.In;
@@ -48,6 +48,7 @@ public class Artist {
     public int getId() {
         return id;
     }
+    public  Integer GetIntegerId(){return id;}
 
     public void setId(int id) {
         this.id = id;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{artist_update}" th:object="${artist}"
+      method="post">
+    <input type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <th class="cell_title">名前</th>
+            <th class="cell_required">※</th>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <th class="cell_title">アーティストタイプ</th>
+            <th class="cell_required">※</th>
+            <td> <select name="PREF" th:field="*{type}">
+                <option value="">--Please choose an option--</option>
+                <option value='S'>ソロアーティスト</option>
+                <option value='G'>グループアーティスト</option>
+            </select>
+            </td>
+
+        </tr>
+        <tr>
+            <th class="cell_title">総曲数</th>
+            <th class="cell_required"></th>
+            <td><input type="text" th:field="*{numberOfMusical}" ></td>
+        </tr>
+<!--        th:text="*{numberOfMusical}"-->
+
+        <tr>
+            <th class="cell_title">誕生日<br>（グループの場合は活動開始日）</th>
+            <th class="cell_required"></th>
+            <td><input type="date" th:field="*{start}"></td>
+        </tr>
+        <tr>
+            <th class="cell_title">没年日<br>（グループの場合は解散日）</th>
+            <th class="cell_required"></th>
+            <td><input type="date" th:field="*{end}"></td>
+        </tr>
+
+
+    </table>
+    <div class="btn_area_center">
+        <input type="submit" value="登録" class="btn">
+    </div>
+</form>
+</body>
+</html>

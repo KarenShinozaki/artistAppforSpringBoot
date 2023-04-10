@@ -1,7 +1,8 @@
-package com.artist.Artist.service;
+package com.artist.Artist.bussinessLogic;
 
-import com.artist.Artist.Movie;
-import com.artist.Artist.DAO.MovieDAO;
+import com.artist.Artist.dataAccess.MovieDAO;
+import com.artist.Artist.dataAccess.MovieDTO;
+import com.artist.Artist.dataAccess.MusicDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,21 @@ public class MovieService {
     }
 
     public List<Movie> getDetail(int id){
-        List<Movie> movie = dao.findDetail(id);
+        List<Movie> movie = dao.findFromArtistId(id);
         return movie;
     }
+
+    public void update(MovieDTO movieDTO){
+        dao.save(createMovie(movieDTO));
+    }
+
+    public Movie createMovie(MovieDTO movieDTO) {
+        Movie movie = new Movie();
+        movie.setTitle(movieDTO.getTitle());
+        movie.setArtistId(movieDTO.getArtist_id());
+        return movie;
+    }
+
 
     @Deprecated
     public Movie getArtistHasAMovie(int id){

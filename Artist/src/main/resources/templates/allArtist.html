@@ -8,7 +8,7 @@
     <title>アーティスト情報の出力</title>
 </head>
 <body>
-<h2>アーティスト情報一覧</h2>
+<h2 style="margin:50px 5%">アーティスト情報一覧</h2>
 
 
 <div class="container">
@@ -16,7 +16,20 @@
         <div class="col">
             <div class="p-3 border bg-light">
                 <a href="artistRegister.html"
-                   th:href="@{http://localhost:8080/artist_register}"><span style="">アーティスト新規登録</span></a></div>
+                   th:href="@{http://localhost:8080/artist_register}"><span style="">アーティスト新規登録</span></a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light">
+                <a href="artistRegister.html"
+                   th:href="@{http://localhost:8080/music_register}"><span style="">音楽新規登録</span></a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light">
+                <a href="artistRegister.html"
+                   th:href="@{http://localhost:8080/movie_register}"><span style="">映画新規登録</span></a>
+            </div>
         </div>
     </div>
 </div>

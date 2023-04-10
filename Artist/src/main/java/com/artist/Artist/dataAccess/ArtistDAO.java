@@ -1,7 +1,9 @@
-package com.artist.Artist.DAO;
+package com.artist.Artist.dataAccess;
 
-import com.artist.Artist.Artist;
-import com.artist.Artist.ArtistDTO;
+import com.artist.Artist.bussinessLogic.Artist;
+import com.artist.Artist.bussinessLogic.ArtistService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +14,7 @@ import java.util.*;
 
 @Repository
 public class ArtistDAO {
+    private static final Logger logger = LoggerFactory.getLogger(ArtistDAO.class);
     @Autowired
     private JdbcTemplate template;
 
@@ -23,8 +26,7 @@ public class ArtistDAO {
 
     public Artist findDetail(int artistId){
         String sql = "SELECT * FROM artists WHERE id =?";
-        Artist a = template.queryForObject(sql, new BeanPropertyRowMapper<Artist>(Artist.class),artistId);
-        return a;
+        return template.queryForObject(sql, new BeanPropertyRowMapper<Artist>(Artist.class),artistId);
     }
 
     public List<Artist> getGroupMembers(int groupId){
@@ -39,14 +41,22 @@ public class ArtistDAO {
         return template.queryForObject("select last_insert_id()",Integer.class);
     }
 
-//    public Artist getGroupFromRelatedMember(int id){
-//        String sql = "SELECT * FROM artists WHERE id = (SELECT group_id FROM artists WHERE id = ?)";
-//        List<Artist> aaa= template.query(sql,new BeanPropertyRowMapper<Artist>(Artist.class),id);
-//        if(aaa.isEmpty()){
-//            return null;
-//        }
-//       return aaa.get(0);
-//    }
+    public void update(Artist artist){
+        String sql = "UPDATE artists SET type = ? ,name = ? , number_of_musical =?, start = ? , end=? WHERE id = ?";
+        int aaa= template.update(sql,artist.getType(),artist.getName(),artist.getNumberOfMusical(),artist.getStart(),artist.getEnd().orElse(null),artist.getId());
+        logger.info("update records={} id={}",aaa,artist.getId());
+    }
+
+
+    @Deprecated
+    public Artist getGroupFromRelatedMember(int id){
+        String sql = "SELECT * FROM artists WHERE id = (SELECT group_id FROM artists WHERE id = ?)";
+        List<Artist> aaa= template.query(sql,new BeanPropertyRowMapper<Artist>(Artist.class),id);
+        if(aaa.isEmpty()){
+            return null;
+        }
+       return aaa.get(0);
+    }
 
 
 

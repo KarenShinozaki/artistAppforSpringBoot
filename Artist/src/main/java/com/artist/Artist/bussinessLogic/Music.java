@@ -1,4 +1,4 @@
-package com.artist.Artist;
+package com.artist.Artist.bussinessLogic;
 
 
 public class Music {

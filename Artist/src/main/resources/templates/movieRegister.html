@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>映画新規登録</title>
+</head>
+<body>
+<div class="container" style="margin:auto 20%;">
+    <h1 style="margin:50px 0">映画新規登録</h1>
+    <form th:action="@{movie_create}" th:object="${movieDTO}"
+          method="post">
+        <table style="margin:auto;width:80%">
+            <tr>
+                <th class="cell_title">タイトル</th>
+                <th class="cell_required">※</th>
+                <td><input type="text" th:field="*{title}"></td>
+                <th th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></th>
+            </tr>
+
+
+            <tr>
+                <th class="cell_title">作品を作ったアーティスト</th>
+                <th class="cell_required">※</th>
+
+                <td><select name="PREF" th:field="*{artist_id}">
+                    <option value="">--Please choose an option--</option>
+                    <option th:each="artist :${artistList}" th:value="${artist.id}" th:text="${artist.name}"></option>
+                </select>
+                </td>
+                <th th:if="${#fields.hasErrors('artist_id')}" th:errors="*{artist_id}" style="color:red;"></th>
+            </tr>
+        </table>
+
+        <div class="artist_register" style="color:#009ee2;margin: 20px auto;">
+            一覧に該当するアーティストが存在しない場合、<a href="http://localhost:8080/artist_register" style="color:#3463FF;">こちら</a>から新規登録をしてください。
+        </div>
+
+        <div class="btn_area_center" style="margin-top: 30px">
+            <input type="submit" value="登録" class="btn btn-outline-primary" style=" display:block; width:150px; margin:0 auto;"/>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

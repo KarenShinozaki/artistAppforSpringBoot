@@ -1,13 +1,23 @@
-package com.artist.Artist;
+package com.artist.Artist.dataAccess;
 
+import org.apache.commons.lang3.StringUtils;
+
+import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.time.LocalDate;
 
 
 public class ArtistDTO {
+    private Integer id;
+    @NotBlank(message = "名前を入力してください")
     private String name;
+    @NotBlank(message = "アーティストタイプを入力してください")
     private String type;
+
+    @Pattern(regexp = "\\d{1,}", message = "0以上の半角数字を指定してください")
     private String numberOfMusical;
+    @NotBlank(message = "誕生日もしくは活動開始日を入力してください")
     private String start;
     private String end;
     private String movie;
@@ -16,16 +26,13 @@ public class ArtistDTO {
     public ArtistDTO() {
     }
 
-
-    public String getMovie() {
-        return movie;
+    public Integer getId() {
+        return id;
     }
 
-    public void setMovie(String movie) {
-        this.movie = movie;
+    public void setId(Integer id) {
+        this.id = id;
     }
-
-
 
     public String getName() {
         return name;
@@ -55,8 +62,6 @@ public class ArtistDTO {
         this.numberOfMusical = numberOfMusical;
     }
 
-
-
     public String getStart() {
         return start;
     }
@@ -74,10 +79,21 @@ public class ArtistDTO {
     }
 
     public LocalDate getDateEnd() {
+        if(!StringUtils.isNotEmpty(getEnd())){
+            return null;
+        }
     return LocalDate.parse(end);
     }
 
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    public String getMovie() {
+        return movie;
+    }
+
+    public void setMovie(String movie) {
+        this.movie = movie;
     }
 }

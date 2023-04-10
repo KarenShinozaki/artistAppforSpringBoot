@@ -1,12 +1,9 @@
-package com.artist.Artist.DAO;
+package com.artist.Artist.dataAccess;
 
-import com.artist.Artist.Artist;
-import com.artist.Artist.Movie;
+import com.artist.Artist.bussinessLogic.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -23,7 +20,7 @@ public class MovieDAO {
         return movieList;
     }
 
-    public List<Movie> findDetail(int movieId){
+    public List<Movie> findFromArtistId(int movieId){
         String sql = "SELECT * FROM movies WHERE artist_id =?";
         List<Movie> movie = template.query(sql, new BeanPropertyRowMapper<Movie>(Movie.class),movieId);
         return movie;

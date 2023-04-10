@@ -2,55 +2,112 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>アーティスト新規登録</title>
 </head>
 <body>
-<h1>アーティスト新規登録</h1>
-<form th:action="@{artist_create}" th:object="${artistDTO}"
-      method="post">
-    <table>
-        <tr>
-            <th class="cell_title">名前</th>
-            <th class="cell_required">※</th>
-            <td><input type="text" th:field="*{name}"></td>
-        </tr>
-        <tr>
-            <th class="cell_title">アーティストタイプ</th>
-            <th class="cell_required">※</th>
-           <td> <select name="PREF" th:field="*{type}">
-               <option value="">--Please choose an option--</option>
-                <option value='S'>ソロアーティスト</option>
-                <option value='G'>グループアーティスト</option>
-           </select>
-           </td>
+<div class="container" style="margin:auto 20%;">
+    <h1 style="margin:50px 0">アーティスト新規登録</h1>
 
-        </tr>
-        <tr>
-            <th class="cell_title">総曲数</th>
-            <th class="cell_required"></th>
-            <td><input type="text" th:field="*{numberOfMusical}"></td>
-        </tr>
+        <form th:action="@{artist_create}" th:object="${artistDTO}"
+              method="post">
 
-        <tr>
-            <th class="cell_title">誕生日<br>（グループの場合は活動開始日）</th>
-            <th class="cell_required"></th>
-            <td><input type="date" th:field="*{start}"></td>
-        </tr>
-        <tr>
-            <th class="cell_title">没年日<br>（グループの場合は解散日）</th>
-            <th class="cell_required"></th>
-            <td><input type="date" th:field="*{end}"></td>
-        </tr>
-        <tr>
-            <th class="cell_title">映画</th>
-            <th class="cell_required"></th>
-            <td><input type="text" th:field="*{movie}"></td>
-        </tr>
+                <div class="row">
+                    <div class="col">
+                        <label for="name" class="form-label">名前</label>
+                        <input id="name" type="text" class="form-control" placeholder="名前" th:field="*{name}">
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"></p>
+                    </div>
+                    <div class="col">
+                        <label for="inputState" class="form-label">アーティストタイプ</label>
+                        <select id="inputState" class="form-select" th:field="*{type}">
+                            <option value="">--Please choose an option--</option>
+                            <option value='S'>ソロアーティスト</option>
+                            <option value='G'>グループアーティスト</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('type')}" th:errors="*{type}" style="color:red;"></p>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col">
+                    <label for="start" class="form-label">誕生日(グループの場合は活動開始日)</label>
+                    <input id="start" type="date" class="form-control" placeholder="0以上の数字を入力してください" th:field="*{start}">
+                    <p th:if="${#fields.hasErrors('start')}" th:errors="*{start}" style="color:red;"></p>
+                </div>
+                <div class="col">
+                    <label for="end" class="form-label">没年日(グループの場合は活動停止日)</label>
+                    <input id="end" type="date" class="form-control" placeholder="0以上の数字を入力してください" th:field="*{end}">
+                    <p th:if="${#fields.hasErrors('end')}" th:errors="*{end}" style="color:red;"></p>
+                </div>
 
-    </table>
-    <div class="btn_area_center">
-        <input type="submit" value="登録" class="btn">
-    </div>
-</form>
+            </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="number_of_musical" class="form-label">総作品数</label>
+                        <input id="number_of_musical" type="text" class="form-control" placeholder="0以上の数字を入力してください" th:field="*{numberOfMusical}">
+                        <p th:if="${#fields.hasErrors('numberOfMusical')}" th:errors="*{numberOfMusical}" style="color:red;"></p>
+                    </div>
+                    <div class="col">
+                        <label for="movie" class="form-label">作品</label>
+                        <input id="movie" type="text" class="form-control" placeholder="作品" th:field="*{movie}">
+                        <p th:if="${#fields.hasErrors('movie')}" th:errors="*{movie}" style="color:red;"></p>
+                    </div>
+                </div>
+
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th class="cell_title">名前</th>-->
+<!--                    <th class="cell_required">※</th>-->
+<!--                    <td><input type="text" th:field="*{name}"></td>-->
+<!--                    <th th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"></th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell_title">アーティストタイプ</th>-->
+<!--                    <th class="cell_required">※</th>-->
+<!--                    <td><select name="PREF" th:field="*{type}">-->
+<!--                        <option value="">&#45;&#45;Please choose an option&#45;&#45;</option>-->
+<!--                        <option value='S'>ソロアーティスト</option>-->
+<!--                        <option value='G'>グループアーティスト</option>-->
+<!--                    </select>-->
+<!--                    </td>-->
+<!--                    <th th:if="${#fields.hasErrors('type')}" th:errors="*{type}" style="color:red;"></th>-->
+
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell_title">総曲数</th>-->
+<!--                    <th class="cell_required"></th>-->
+<!--                    <td><input type="text" th:field="*{numberOfMusical}"></td>-->
+<!--                    <th th:if="${#fields.hasErrors('numberOfMusical')}" th:errors="*{numberOfMusical}"-->
+<!--                        style="color:red;"></th>-->
+<!--                </tr>-->
+
+<!--                <tr>-->
+<!--                    <th class="cell_title">誕生日<br>（グループの場合は活動開始日）</th>-->
+<!--                    <th class="cell_required"></th>-->
+<!--                    <td><input type="date" th:field="*{start}"></td>-->
+<!--                    <th th:if="${#fields.hasErrors('start')}" th:errors="*{start}" style="color:red;"></th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell_title">没年日<br>（グループの場合は解散日）</th>-->
+<!--                    <th class="cell_required"></th>-->
+<!--                    <td><input type="date" th:field="*{end}"></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th class="cell_title">映画</th>-->
+<!--                    <th class="cell_required"></th>-->
+<!--                    <td><input type="text" th:field="*{movie}"></td>-->
+<!--                </tr>-->
+<!--            </table>-->
+
+            <div class="btn_area_center" style="margin-top: 30px">
+                <input type="submit" value="登録" class="btn btn-outline-primary" style="  display:block; width:150px; margin:0 auto;"/>
+            </div>
+
+
+        </form>
+</div>
 </body>
 </html>
