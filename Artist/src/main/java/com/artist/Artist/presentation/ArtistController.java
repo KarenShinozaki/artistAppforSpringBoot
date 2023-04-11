@@ -75,6 +75,8 @@ public class ArtistController {
 
     @GetMapping("artist_edit")
     public String artistEdit(Model m, @RequestParam("id") int id) {
+        List<Artist> soloArtistList = artistService.getSoloArtistList();
+        m.addAttribute("soloArtistList",soloArtistList);
         Artist artist = artistService.getDetail(id);
         ArtistDTO artistDTO = new ArtistDTO();
         artistDTO.setId(artist.getId());
@@ -87,9 +89,19 @@ public class ArtistController {
         return "artistEdit";
     }
 
+
     @PostMapping("artist_update")
-    public String update(@ModelAttribute @Validated ArtistDTO artistDTO, Model m) {
-        artistService.update(artistDTO);
+    public String update(@ModelAttribute @Validated ArtistDTO artistDTO, BindingResult error,@RequestParam("id") int id,Model m) {
+        if (error.hasFieldErrors()) {
+            List<Artist> soloArtistList = artistService.getSoloArtistList();
+            m.addAttribute("soloArtistList",soloArtistList);
+            Artist artist = artistService.getDetail(id);
+            m.addAttribute("artist", artistDTO);
+            return "artistEdit";
+        }
+        Artist selectMember = artistService.getDetail(artistDTO.getMemberId());
+        selectMember.setGroupId(id);
+        artistService.update2(artistDTO,selectMember);
         return "redirect:allArtist";
     }
 }

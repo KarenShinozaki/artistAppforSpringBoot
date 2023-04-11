@@ -21,6 +21,7 @@ public class ArtistDTO {
     private String start;
     private String end;
     private String movie;
+    private Integer memberId;
 
 
     public ArtistDTO() {
@@ -95,5 +96,13 @@ public class ArtistDTO {
 
     public void setMovie(String movie) {
         this.movie = movie;
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
     }
 }

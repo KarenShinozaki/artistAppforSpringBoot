@@ -35,6 +35,14 @@ public class ArtistDAO {
         return template.query(sql, rowMapper, groupId);
     }
 
+    public List<Artist> getSoloArtist(){
+        String  sql = "select * from artists where type = 'S'";
+        RowMapper<Artist> rowMapper = new BeanPropertyRowMapper<Artist>(Artist.class);
+        return template.query(sql, rowMapper);
+    }
+
+
+
     public int save(Artist artist) {
         String sql = "insert into Artists(type,name,number_of_musical,start,end) values(?,?,?,?,?)";
         template.update(sql,artist.getType(),artist.getName(),artist.getNumberOfMusical(),artist.getStart(),artist.getEnd().orElse(null));
@@ -42,9 +50,14 @@ public class ArtistDAO {
     }
 
     public void update(Artist artist){
-        String sql = "UPDATE artists SET type = ? ,name = ? , number_of_musical =?, start = ? , end=? WHERE id = ?";
+        String sql = "UPDATE artists SET type = ? ,name = ? , number_of_musical =?, start = ? , end=?  WHERE id = ?";
         int aaa= template.update(sql,artist.getType(),artist.getName(),artist.getNumberOfMusical(),artist.getStart(),artist.getEnd().orElse(null),artist.getId());
         logger.info("update records={} id={}",aaa,artist.getId());
+    }
+
+    public void update2(Artist artist,Artist selectArtist){
+        String sql = "update artists set group_id=? where id= ?";
+        template.update(sql,artist.getId(),selectArtist.getId());
     }
 
 

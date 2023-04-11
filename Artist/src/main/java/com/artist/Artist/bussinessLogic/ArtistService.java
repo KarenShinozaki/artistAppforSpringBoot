@@ -41,6 +41,11 @@ public class ArtistService {
         return groupHasAArtists;
     }
 
+    public List<Artist> getSoloArtistList(){
+        List<Artist> soloArtistList = dao.getSoloArtist();
+        return soloArtistList;
+    }
+
     @Transactional
     public void update(ArtistDTO artistDTO) {
         if (artistDTO.getId() != null) {
@@ -57,6 +62,26 @@ public class ArtistService {
             }
         }
     }
+
+    @Transactional
+    public void update2(ArtistDTO artistDTO,Artist selectMember) {
+        if (artistDTO.getId() != null) {
+            logger.info("update Id={}",artistDTO.getId());
+            Artist setArtist = createArtist(artistDTO);
+            dao.update2(setArtist,selectMember);
+            dao.update(setArtist);
+        } else {
+            logger.info("insert");
+            int artistId = dao.save(createArtist(artistDTO));
+            if (StringUtils.isNotBlank(artistDTO.getMovie())) {
+                Movie movie = new Movie();
+                movie.setTitle(artistDTO.getMovie());
+                movie.setArtistId(artistId);
+                moviedao.save(movie);
+            }
+        }
+    }
+
 
     public Artist createArtist(ArtistDTO artistDTO) {
         Artist artist = new Artist();
