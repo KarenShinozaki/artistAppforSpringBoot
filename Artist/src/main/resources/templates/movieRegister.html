@@ -12,27 +12,23 @@
     <h1 style="margin:50px 0">映画新規登録</h1>
     <form th:action="@{movie_create}" th:object="${movieDTO}"
           method="post">
-        <table style="margin:auto;width:80%">
-            <tr>
-                <th class="cell_title">タイトル</th>
-                <th class="cell_required">※</th>
-                <td><input type="text" th:field="*{title}"></td>
-                <th th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></th>
-            </tr>
 
-
-            <tr>
-                <th class="cell_title">作品を作ったアーティスト</th>
-                <th class="cell_required">※</th>
-
-                <td><select name="PREF" th:field="*{artist_id}">
+        <div class="row">
+            <div class="col">
+                <label for="Input" class="form-label">作品タイトル</label>
+                <input type="text" class="form-control" id="Input" placeholder="作品タイトル" th:field="*{title}">
+                <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></p>
+            </div>
+            <div class="col">
+                <label for="artistName" class="form-label">作品を作ったアーティスト</label>
+                <select id="artistName" class="form-select" th:field="*{artist_id}">
                     <option value="">--Please choose an option--</option>
                     <option th:each="artist :${artistList}" th:value="${artist.id}" th:text="${artist.name}"></option>
                 </select>
-                </td>
-                <th th:if="${#fields.hasErrors('artist_id')}" th:errors="*{artist_id}" style="color:red;"></th>
-            </tr>
-        </table>
+                <p th:if="${#fields.hasErrors('artist_id')}" th:errors="*{artist_id}" style="color:red;"></p>
+            </div>
+        </div>
+
 
         <div class="artist_register" style="color:#009ee2;margin: 20px auto;">
             一覧に該当するアーティストが存在しない場合、<a href="http://localhost:8080/artist_register" style="color:#3463FF;">こちら</a>から新規登録をしてください。

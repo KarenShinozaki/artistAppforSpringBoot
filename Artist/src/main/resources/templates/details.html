@@ -10,6 +10,15 @@
 <body>
     <span th:if="${artistDetail.type == 'S'}">
         <div class="Artist" style="margin:5%">
+            <div class="container">
+                <div class="row justify-content-end row-cols-lg-5 g-lg-10" style="text-align:center; ">
+                    <div class="col">
+                        <div class="p-3 border bg-light">
+                            <a href="artistEdit.html"
+                               th:href="@{http://localhost:8080/artist_edit(id=${artistDetail.id})}"><span style="">アーティスト情報編集</span></a></div>
+                    </div>
+                </div>
+            </div>
             名前：<span th:text="${artistDetail.name}"></span><br><br>
             総曲数：<span th:text="${artistDetail.numberOfMusical}"></span><br><br>
             誕生日：<span th:text="${#temporals.format(artistDetail.start, 'yyyy/MM/dd')}"></span><br><br>
